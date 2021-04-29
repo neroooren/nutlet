@@ -100,7 +100,7 @@ export function replaceThemeToken(theme: NutletTheme, value: string): string {
         // tokens use other token
         replacer = replaceThemeToken(theme, val)
       } else {
-        replacer = `var(--${tokenPath.replaceAll('.', '-')})`
+        replacer = `var(--${tokenPath.replace(/\./g, '-')})`
       }
 
       value = value.substring(0, match.index) + replacer + value.substring(match.index + tokenPath.length + 1)
