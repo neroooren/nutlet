@@ -1,0 +1,10 @@
+node_modules
+.pnpm-debug.log
+.yarn.lock
+.package-lock.json
+.parcel-cache
+.nyc_output
+coverage
+dist
+esm
+esnext

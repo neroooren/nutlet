@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ES2018",
+    "module": "ESNext",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "declaration": true,
+    "pretty": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "newLine": "LF",
+    "noEmitHelpers": true,
+    "skipLibCheck": true,
+    "stripInternal": true,
+    "lib": [
+      "dom",
+      "ES5",
+      "ES2015",
+      "ES2016",
+      "ES2017",
+      "ES2018",
+      "ES2019",
+      "ESNext"
+    ],
+    "baseUrl": "./packages",
+    "paths": {
+      "@nutlet/*": [
+        "./*/src/index.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "examples"
+  ],
+  "include": [
+    "global.d.ts",
+    "packages"
+  ]
+}

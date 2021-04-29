@@ -1,0 +1,166 @@
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 2020
+  sourceType: module
+  project:
+    - ./tsconfig.lint.json
+    - ./examples/tsconfig.json
+
+env:
+  browser: true
+  es6: true
+  node: true
+
+globals:
+  globalThis: readonly
+  process: readonly
+
+plugins:
+  - '@typescript-eslint'
+  - import
+  - sonarjs
+  - react-hooks
+
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+  - plugin:sonarjs/recommended
+  - plugin:prettier/recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
+
+settings:
+  react:
+    pragma: React
+    version: 17.0.2
+  import/internal-regex: ^@nutlet/
+
+rules:
+  # 0 = off, 1 = warn, 2 = error
+  # use typescript version
+  'space-before-function-paren': 0
+  'no-useless-constructor': 0
+  'no-use-before-define': 0
+  'no-redeclare': 0
+  'no-unused-vars': 0
+  'no-case-declarations': 0
+  'no-undef': 0
+  'no-dupe-class-members': 0
+
+  'no-console': [2, { allow: ['error', 'warn', 'info', 'assert'] }]
+  'comma-dangle': ['error', 'only-multiline']
+  'no-var': 2
+  'one-var-declaration-per-line': 2
+  'prefer-const': 2
+  'no-const-assign': 2
+  'no-duplicate-imports': 2
+  'eqeqeq': [2, 'always', { 'null': 'ignore' }]
+  'no-restricted-syntax':
+    [
+      2,
+      {
+        'selector': 'BinaryExpression[operator=/(==|===|!=|!==)/][left.raw=true], BinaryExpression[operator=/(==|===|!=|!==)/][right.raw=true]',
+        'message': Don't compare for equality against boolean literals,
+      },
+    ]
+
+  'import/first': 2
+  'import/newline-after-import': 2
+  'import/order': [2, { 'newlines-between': 'always', 'alphabetize': { 'order': 'asc', 'caseInsensitive': true } }]
+
+  'react/prop-types': 0
+  'react/jsx-equals-spacing': 0
+  'react/no-find-dom-node': 2
+  'react/jsx-key': 2
+  'react/no-string-refs': 2
+  'react/self-closing-comp': 2
+  'react/no-deprecated': 2
+  'react/react-in-jsx-scope': 0
+  'react/display-name': 0
+  'react/jsx-no-target-blank': 0
+  'react/no-unescaped-entities': 0
+  'react/jsx-no-bind': 2
+
+  'react-hooks/rules-of-hooks': 2
+  'react-hooks/exhaustive-deps': 2
+
+  'sonarjs/cognitive-complexity': 0
+  'sonarjs/no-duplicate-string': 0
+  'sonarjs/no-identical-functions': 2
+  'sonarjs/no-small-switch': 2
+
+  '@typescript-eslint/ban-ts-comment': [
+      2,
+      {
+        'ts-expect-error': 'allow-with-description',
+        'ts-ignore': true,
+        'ts-nocheck': true,
+        'ts-check': false,
+        minimumDescriptionLength: 5,
+      }
+    ]
+  # allow implicit function return type
+  '@typescript-eslint/explicit-module-boundary-types': 0
+  '@typescript-eslint/no-empty-function': [
+    2,
+    { allow: ['arrowFunctions'] },
+  ]
+  '@typescript-eslint/no-explicit-any': 2
+  '@typescript-eslint/prefer-nullish-coalescing': 2
+  '@typescript-eslint/prefer-optional-chain': 2
+  '@typescript-eslint/no-non-null-assertion': 0
+  '@typescript-eslint/unbound-method': 0
+  '@typescript-eslint/prefer-as-const': 2
+  '@typescript-eslint/no-unused-vars': [
+    2,
+    { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+  ]
+  '@typescript-eslint/no-unsafe-assignment': 0
+  '@typescript-eslint/no-unsafe-member-access': 0
+  '@typescript-eslint/no-unsafe-return': 0
+  '@typescript-eslint/no-extra-semi': 0
+  '@typescript-eslint/restrict-template-expressions': 0
+
+  camelcase: 0
+  '@typescript-eslint/naming-convention': [ 
+    2,
+    {
+      selector: 'default',
+      format: ['camelCase'],
+    },
+    {
+      selector: 'variable',
+      format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+      leadingUnderscore: 'allow',
+    },
+    {
+      selector: 'parameter',
+      format: ['camelCase'],
+      leadingUnderscore: 'allow'
+    },
+    {
+      selector: 'memberLike',
+      modifiers: ['private'],
+      format: ['camelCase'],
+      leadingUnderscore: 'forbid'
+    },
+    {
+      selector: 'typeLike',
+      format: ['PascalCase']
+    }
+  ]
+
+overrides:
+  # tests
+  - files:
+      - '**/__tests__/**/*.spec.{ts,tsx}'
+    env:
+      jest: true
+
+  # configs
+  - files:
+      - '*/*.config.js'
+    rules:
+      '@typescript-eslint/no-var-requires': 2
