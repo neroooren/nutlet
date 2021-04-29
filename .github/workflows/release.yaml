@@ -2,10 +2,8 @@ name: Release packages
 
 on:
   push:
-    branches-ignore:
-      - '**'
     tags:
-      - v[0-9]+.[0-9]+.[0-9]+*
+      - v*
 
 jobs:
   release:
@@ -31,6 +29,6 @@ jobs:
         env:
           NODE_ENV: production
       - name: Publish
-        run: pnpm lerna publish from-package --no-verify-access --yes
+        run: pnpm publish -r
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
