@@ -31,6 +31,6 @@ jobs:
       - name: Build
         run: pnpm build
       - name: Codecov
-        run: npx codecov -f coverage/*.json
+        run: pnpx codecov -f coverage/*.info
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
