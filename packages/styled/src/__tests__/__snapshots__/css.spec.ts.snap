@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateRules: complexImplicitParentSelector: 
+.n {
+  ":hover": {
+    "> :first-child": {
+      "fontWeight": 500
+    }
+  }
+} 1`] = `
+Array [
+  ".n:hover >:first-child{font-weight:500;}",
+]
+`;
+
+exports[`generateRules: explicitParentSelector: 
+.n {
+  "color": "green",
+  "border": "1px solid gray",
+  "fontSize": 12,
+  "&:hover": {
+    "color": "$colors.blue"
+  },
+  ":active": {
+    "outline": "$colors.yellow"
+  }
+} 1`] = `
+Array [
+  ".n{color:green;border:1px solid gray;font-size:12px;}",
+  ".n:hover{color:var(--colors-blue);}",
+  ".n:active{outline:var(--colors-yellow);}",
+]
+`;
+
+exports[`generateRules: implicitParentSelector: 
+.n {
+  ":hover": {
+    "color": "$colors.blue"
+  }
+} 1`] = `
+Array [
+  ".n:hover{color:var(--colors-blue);}",
+]
+`;
+
+exports[`generateRules: normal: 
+.n {
+  "color": "green",
+  "border": "1px solid gray",
+  "fontSize": 12
+} 1`] = `
+Array [
+  ".n{color:green;border:1px solid gray;font-size:12px;}",
+]
+`;
+
+exports[`generateRules: parentSelectorCoExist: 
+.n {
+  "color": "green",
+  "border": "1px solid gray",
+  "fontSize": 12,
+  "&:hover": {
+    "::before": {
+      "content": "\\":hover::before\\"",
+      "position": "absolute"
+    }
+  },
+  "::after": {
+    "&:hover": {
+      "content": "\\"::after:hover\\""
+    }
+  },
+  "&, :hover": {
+    "::before": {
+      "content": "'::before,:hover::before'"
+    }
+  },
+  "& + &::after:": {
+    "&:hover:": {
+      "content": "\\":hover+::after:hover\\""
+    }
+  },
+  "&, :not(:first-child)": {
+    "::before, &::after": {
+      "content": "\\"complex\\""
+    }
+  }
+} 1`] = `
+Array [
+  ".n{color:green;border:1px solid gray;font-size:12px;}",
+  ".n:hover::before{content:\\":hover::before\\";position:absolute;}",
+  ".n::after:hover{content:\\"::after:hover\\";}",
+  ".n::before,.n:hover::before{content:'::before,:hover::before';}",
+  ".n+.n::after::hover:{content:\\":hover+::after:hover\\";}",
+  ".n::before,.n:not(:first-child)::before,.n::after,.n:not(:first-child)::after{content:\\"complex\\";}",
+]
+`;
+
+exports[`generateRules: prefix: 
+.n {
+  "transform": "rotate(180deg)",
+  "display": "flex"
+} 1`] = `
+Array [
+  ".n{-webkit-transform:rotate(180deg);-moz-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}",
+]
+`;

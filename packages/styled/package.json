@@ -1,0 +1,41 @@
+{
+  "name": "@nutlet/styled",
+  "version": "0.0.1",
+  "description": "The modern CSS-in-JS library of nutlet design language",
+  "main": "./dist/index.js",
+  "module": "./esm/index.mjs",
+  "browser": "./esm/index.mjs",
+  "esnext": "./next/index.js",
+  "types": "./next/index.d.ts",
+  "exports": {
+    ".": {
+      "development": "./src/index.ts",
+      "import": "./esm/index.mjs",
+      "require": "./dist/index.js",
+      "node": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "forehalo <forehalo@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@types/stylis": "^4.0.0",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "dependencies": {
+    "@emotion/hash": "^0.8.0",
+    "csstype": "^3.0.7",
+    "stylis": "^4.0.10",
+    "tslib": "^2.2.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  }
+}
