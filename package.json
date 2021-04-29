@@ -22,6 +22,7 @@
     "parser": "typescript"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.16.0",
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",

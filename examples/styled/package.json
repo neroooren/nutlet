@@ -1,5 +1,6 @@
 {
   "name": "@nutlet-example/styled",
+  "version": "0.0.0",
   "private": true,
   "dependencies": {
     "@nutlet/styled": "workspace:*"
