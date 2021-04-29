@@ -181,7 +181,7 @@ export function generateRules(className: string, initialStyle: string, theme?: T
   }
 
   serialize(
-    compile(`.${className}{${initialStyle}`),
+    compile(`.${className}{${initialStyle}}`),
     middleware([
       // @ts-expect-error we use more accurate element type to reduce type casting and avoid useless runtime assertion
       normalizeMiddleware,
