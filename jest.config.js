@@ -17,7 +17,12 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   coverageReporters: ['lcov'],
-  collectCoverageFrom: ['packages/**/*.{ts,tsx}', '!packages/**/__tests__/**/*', '!packages/**/src/index.ts'],
+  collectCoverageFrom: [
+    'packages/**/*.{ts,tsx}',
+    '!packages/**/__tests__/**/*',
+    '!packages/**/src/index.ts',
+    '!**/*.d.ts',
+  ],
   moduleNameMapper: {
     '@nutlet/([^/]+)(.*)$': '<rootDir>/packages/$1/src$2',
   },

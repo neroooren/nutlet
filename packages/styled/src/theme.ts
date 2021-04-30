@@ -8,7 +8,7 @@ import { entries, get, hashString } from './util'
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Theme {}
 
-type NutletTheme = Theme & {
+export type NutletTheme = Theme & {
   $$nutlet?: {
     className: string
     parent?: NutletTheme
@@ -33,7 +33,6 @@ export const ThemeProvider: FC<{ theme: RecursivePartial<Theme> }> = ({ theme, c
 
 export function initTheme(theme: Theme, parent?: Theme): NutletTheme {
   if ('$$nutlet' in theme) {
-    console.warn('Theme has already been initialized: ', theme)
     return theme
   }
 
@@ -84,31 +83,33 @@ export function getThemeClassName(theme: NutletTheme): string {
   return classNames.join(' ')
 }
 
-const themeTokenPattern = /\$([a-zA-Z0-9.]+)/g
+const themeTokenPattern = /\$([a-zA-Z0-9.]+)/
 export function replaceThemeToken(theme: NutletTheme, value: string): string {
   let match: RegExpExecArray | null = null
 
   while ((match = themeTokenPattern.exec(value))) {
     const tokenPath = match[1]
-    const val = get(theme, tokenPath)
-    if (val) {
+    const token = get(theme, tokenPath)
+
+    if (token) {
       let replacer: string
-      if (typeof val === 'object') {
-        // error
-        break
-      } else if (typeof val === 'string' && val.startsWith('$')) {
+      if (typeof token === 'object') {
+        throw new Error(`Expect String or Number in path '$${tokenPath}', but an object found ${JSON.stringify(token)}`)
+      } else if (typeof token === 'string' && token.startsWith('$')) {
         // tokens use other token
-        replacer = replaceThemeToken(theme, val)
+        replacer = replaceThemeToken(theme, token)
       } else {
         replacer = `var(--${tokenPath.replace(/\./g, '-')})`
       }
 
       value = value.substring(0, match.index) + replacer + value.substring(match.index + tokenPath.length + 1)
+    } else if (value.includes('$')) {
+      if (theme.$$nutlet?.parent) {
+        return replaceThemeToken(theme.$$nutlet.parent, value)
+      } else {
+        throw new Error(`No theme variable defined in path '$${tokenPath}'`)
+      }
     }
-  }
-
-  if (theme.$$nutlet?.parent && value.includes('$')) {
-    return replaceThemeToken(theme.$$nutlet.parent, value)
   }
 
   return value
